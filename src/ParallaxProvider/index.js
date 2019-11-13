@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ParallaxContext from './context';
-import defaultClassPrefix from './defaultClassPrefix';
+import defaultClassPrefix from '../defaultClassPrefix';
 
 class ParallaxProvider extends Component {
   constructor(props) {

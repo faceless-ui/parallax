@@ -1,16 +1,24 @@
 import React, { Fragment } from 'react';
+import { ParallaxProvider } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 import ParallaxDemo from './Parallax.demo';
 
 const AppDemo = () => {
   return (
     <Fragment>
-      <div id="parallax">
-        <ParallaxDemo />
-      </div>
-      <div
-        id="spacer"
-        style={{ height: '10000px' }}
+      <style
+        dangerouslySetInnerHTML={{ __html: `
+          .demo__parallax--has-scrolled {
+            transition: transform 600ms cubic-bezier(0, 0, 0.2, 1) 0s;
+          }
+        ` }}
       />
+      <ParallaxProvider classPrefix="demo">
+        <ParallaxDemo />
+        <div
+          id="spacer"
+          style={{ height: '10000px' }}
+        />
+      </ParallaxProvider>
     </Fragment>
   );
 };

@@ -17,14 +17,23 @@ $ yarn add @trbl/react-parallax
 ### Compositon
 
 ```jsx
-  <ParallaxProvider>
-    <Parallax speed={0.3}>
-      ...
-    </Parallax>
-    <Parallax speed={0.9}>
-      ...
-    </Parallax>
-  </ParallaxProvider>
+  import React from 'react';
+  import { ParallaxProvider, Parallax } from '@trbl/react-parallax';
+
+  const App = () => {
+    return (
+      <ParallaxProvider>
+        <Parallax speed={0.3}>
+          ...
+        </Parallax>
+        <Parallax speed={0.9}>
+          ...
+        </Parallax>
+      </ParallaxProvider>
+    )
+  }
+
+  export default App;
 ```
 
 ## Demo
