@@ -1,5 +1,5 @@
 [![NPM](https://img.shields.io/npm/v/@trbl/react-parallax)](https://www.npmjs.com/@trbl/react-parallax)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@trbl/react-parallax?label=zipped)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@trbl/react-parallax?label=zipped)
 [![Supported by TRBL](https://img.shields.io/badge/supported_by-TRBL-black)](https://github.com/trouble)
 
 # React Parallax
