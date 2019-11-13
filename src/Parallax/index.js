@@ -18,6 +18,9 @@ class Parallax extends Component {
   constructor(props) {
     super(props);
     this.domRef = React.createRef();
+    this.state = {
+      hasScrolled: false
+    }
   }
 
   createStyles = () => {
@@ -47,6 +50,15 @@ class Parallax extends Component {
     return style;
   }
 
+  componentDidUpdate(prevProps) {
+    const { scrollPos: { y: prevScrollY } } = prevProps;
+    const { scrollPos: { y: scrollY } } = this.props;
+    const { hasScrolled } = this.state;
+    if (prevScrollY !== scrollY && !hasScrolled) {
+      this.setState({ hasScrolled: true })
+    }
+  }
+
   render() {
     const {
       id,
@@ -56,12 +68,17 @@ class Parallax extends Component {
       classPrefix,
     } = this.props;
 
+    const {
+      hasScrolled
+    } = this.state;
+
     const baseClass = `${classPrefix}__parallax`;
     const styles = this.createStyles();
 
     const classes = [
       baseClass,
       className,
+      hasScrolled && `${baseClass}--has-scrolled`
     ].filter(Boolean).join(' ');
 
     return (

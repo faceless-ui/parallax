@@ -6,7 +6,7 @@ const ParallaxDemo = () => {
     <Fragment>
       <style
         dangerouslySetInnerHTML={{ __html: `
-          .custom__parallax {
+          .custom__parallax--has-scrolled {
             transition: transform 600ms cubic-bezier(0, 0, 0.2, 1) 0s;
           }
         ` }}
