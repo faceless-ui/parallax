@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { WindowInfoProvider, WindowInfoContext } from '@trbl/react-window-info';
-import { ScrollPositionProvider, ScrollPositionContext } from '@trbl/react-scroll-position';
+import { ScrollInfoProvider, ScrollInfoContext } from '@trbl/react-scroll-info';
 import ParallaxContext from './context';
 import defaultClassPrefix from '../defaultClassPrefix';
 
@@ -17,12 +17,12 @@ const ParallaxProvider = (props) => {
         {(windowInfoContext) => {
           const { windowInfo } = windowInfoContext;
           return (
-            <ScrollPositionProvider>
-              <ScrollPositionContext.Consumer>
-                {(scrollPositionContext) => {
-                  const { scrollPos } = scrollPositionContext;
+            <ScrollInfoProvider>
+              <ScrollInfoContext.Consumer>
+                {(scrollInfoContext) => {
+                  const { scrollInfo } = scrollInfoContext;
                   const parallaxContext = {
-                    scrollPos,
+                    scrollInfo,
                     windowInfo,
                     classPrefix: classPrefix || defaultClassPrefix,
                   };
@@ -32,8 +32,8 @@ const ParallaxProvider = (props) => {
                     </ParallaxContext.Provider>
                   );
                 }}
-              </ScrollPositionContext.Consumer>
-            </ScrollPositionProvider>
+              </ScrollInfoContext.Consumer>
+            </ScrollInfoProvider>
           );
         }}
       </WindowInfoContext.Consumer>

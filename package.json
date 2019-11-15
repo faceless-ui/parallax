@@ -23,7 +23,7 @@
     "react": "^16.11.0"
   },
   "dependencies": {
-    "@trbl/react-scroll-position": "^0.0.3",
+    "@trbl/react-scroll-info": "^0.0.6",
     "@trbl/react-window-info": "^0.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",

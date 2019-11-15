@@ -19,7 +19,16 @@ class Parallax extends Component {
     super(props);
     this.domRef = React.createRef();
     this.state = {
-      hasScrolled: false
+      hasScrolled: false,
+    };
+  }
+
+  componentDidUpdate(prevProps) {
+    const { scrollInfo: { y: prevScrollY } } = prevProps;
+    const { scrollInfo: { y: scrollY } } = this.props;
+    const { hasScrolled } = this.state;
+    if (prevScrollY !== scrollY && !hasScrolled) {
+      this.setState({ hasScrolled: true });
     }
   }
 
@@ -29,7 +38,7 @@ class Parallax extends Component {
       windowInfo: {
         height: windowHeight,
       },
-      scrollPos,
+      scrollInfo,
     } = this.props;
 
     const style = {
@@ -41,22 +50,13 @@ class Parallax extends Component {
       const offsetTop = getOffsetTop(this.domRef.current);
       const min = offsetTop;
       const max = offsetTop + windowHeight;
-      const pos = (((scrollPos.y - min) / (max - min)) * 100).toFixed(3);
+      const pos = (((scrollInfo.y - min) / (max - min)) * 100).toFixed(3);
       const capped = Math.min(Math.max(pos, -300), 300);
       const transform = capped * speed;
       style.transform = `translate3d(0, ${transform}%, 0)`;
     }
 
     return style;
-  }
-
-  componentDidUpdate(prevProps) {
-    const { scrollPos: { y: prevScrollY } } = prevProps;
-    const { scrollPos: { y: scrollY } } = this.props;
-    const { hasScrolled } = this.state;
-    if (prevScrollY !== scrollY && !hasScrolled) {
-      this.setState({ hasScrolled: true })
-    }
   }
 
   render() {
@@ -69,7 +69,7 @@ class Parallax extends Component {
     } = this.props;
 
     const {
-      hasScrolled
+      hasScrolled,
     } = this.state;
 
     const baseClass = `${classPrefix}__parallax`;
@@ -78,7 +78,7 @@ class Parallax extends Component {
     const classes = [
       baseClass,
       className,
-      hasScrolled && `${baseClass}--has-scrolled`
+      hasScrolled && `${baseClass}--has-scrolled`,
     ].filter(Boolean).join(' ');
 
     return (
@@ -115,7 +115,7 @@ Parallax.propTypes = {
   windowInfo: PropTypes.shape({
     height: PropTypes.number,
   }).isRequired,
-  scrollPos: PropTypes.shape({
+  scrollInfo: PropTypes.shape({
     y: PropTypes.number,
   }).isRequired,
   children: PropTypes.node.isRequired,
