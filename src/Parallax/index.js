@@ -47,7 +47,7 @@ class Parallax extends Component {
     }
   }
 
-  // true positions
+  // queried (true) positions
   queryNodeRect = () => {
     const { current: node } = this.domRef;
 
@@ -56,7 +56,7 @@ class Parallax extends Component {
 
       const nodeRect = {
         width: DOMRect.width,
-        heigh: DOMRect.height,
+        height: DOMRect.height,
         top: DOMRect.top,
         right: DOMRect.right,
         bottom: DOMRect.bottom,
@@ -81,7 +81,7 @@ class Parallax extends Component {
     } = this.props;
 
     const newNodeRect = {
-      ...nodeRect, // maintain original width and height
+      ...nodeRect, // maintain queried width and height
       top: nodeRect.top - yDifference,
       right: nodeRect.right - xDifference,
       bottom: nodeRect.bottom - yDifference,
@@ -96,6 +96,8 @@ class Parallax extends Component {
   getCSSTransform = () => {
     const {
       nodeRect: {
+        width: nodeWidth,
+        height: nodeHeight,
         top: nodeTop,
         left: nodeLeft,
       },
@@ -110,13 +112,18 @@ class Parallax extends Component {
       },
     } = this.props;
 
-    const xProgress = nodeLeft / (windowWidth + xDistance);
-    const yProgress = nodeTop / (windowHeight + yDistance);
+    const totalYTravel = windowHeight + nodeHeight;
+    const yDistanceToBoundary = nodeTop + nodeHeight;
+    const yRatioInViewport = 1 - (yDistanceToBoundary / totalYTravel);
 
-    const xTransform = (xDistance * xProgress);
-    const yTransform = (yDistance * yProgress);
+    const totalXTravel = windowWidth + nodeWidth;
+    const xDistanceToBoundary = nodeLeft + nodeWidth;
+    const xRatioInViewport = 1 - (xDistanceToBoundary / totalXTravel);
 
-    const cssTransform = `translate3d(${xTransform}px, ${yTransform}px, 0)`;
+    const xTransform = (xDistance * xRatioInViewport);
+    const yTransform = (yDistance * yRatioInViewport);
+
+    const cssTransform = `translate3d(${xDistance && xTransform}px, ${yDistance && yTransform}px, 0)`;
 
     this.setState({ cssTransform });
   }
@@ -141,10 +148,9 @@ class Parallax extends Component {
 
     const classes = [
       baseClass,
-      id,
+      scrollCount && `${baseClass}--has-scrolled`,
       className,
       htmlAttributes.className,
-      scrollCount && `${baseClass}--has-scrolled`,
     ].filter(Boolean).join(' ');
 
     const strippedHtmlAttributes = { ...htmlAttributes };
@@ -152,17 +158,21 @@ class Parallax extends Component {
     delete strippedHtmlAttributes.className;
     delete strippedHtmlAttributes.style;
 
+    const childClasses = [
+      `${baseClass}__transformer`,
+      children.props.className,
+    ].filter(Boolean).join(' ');
+
     return (
       <HtmlElement
         id={id || htmlAttributes.id}
         ref={this.domRef}
         className={classes}
         style={{
-          ...style,
           ...htmlAttributes.style,
+          ...style,
         }}
         {...strippedHtmlAttributes}
-
       >
         {React.cloneElement(
           children,
@@ -172,6 +182,7 @@ class Parallax extends Component {
               willChange: 'transform',
               transform: cssTransform,
             },
+            className: childClasses,
           },
         )}
       </HtmlElement>
