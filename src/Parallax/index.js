@@ -2,124 +2,232 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withParallaxContext from '../withParallaxContext';
 
-const getOffsetTop = (element) => {
-  let el = element;
-  let distance = 0;
-  if (el.offsetParent) {
-    do {
-      distance += el.offsetTop;
-      el = el.offsetParent;
-    } while (el);
-  }
-  return distance < 0 ? 0 : distance;
-};
-
 class Parallax extends Component {
   constructor(props) {
     super(props);
     this.domRef = React.createRef();
     this.state = {
-      hasScrolled: false,
+      nodeRect: {
+        width: 0,
+        height: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      },
+      cssTransform: '',
     };
+  }
+
+  componentDidMount() {
+    this.queryNodeRect();
   }
 
   componentDidUpdate(prevProps) {
-    const { scrollInfo: { y: prevScrollY } } = prevProps;
-    const { scrollInfo: { y: scrollY } } = this.props;
-    const { hasScrolled } = this.state;
-    if (prevScrollY !== scrollY && !hasScrolled) {
-      this.setState({ hasScrolled: true });
+    const {
+      windowInfo: { count: windowCount },
+      scrollInfo: { count: scrollCount },
+    } = this.props;
+
+    const {
+      windowInfo: { count: prevWindowCount },
+      scrollInfo: { count: prevScrollCount },
+    } = prevProps;
+
+    if (windowCount !== prevWindowCount) {
+      this.queryNodeRect();
+    }
+
+    if (scrollCount !== prevScrollCount) {
+      if (scrollCount > 1) {
+        this.trackNodeRect();
+      } else {
+        this.queryNodeRect();
+      }
     }
   }
 
-  createStyles = () => {
+  // true positions
+  queryNodeRect = () => {
+    const { current: node } = this.domRef;
+
+    if (node) {
+      const DOMRect = node.getBoundingClientRect(); // clientRect because its relative to the vieport
+
+      const nodeRect = {
+        width: DOMRect.width,
+        heigh: DOMRect.height,
+        top: DOMRect.top,
+        right: DOMRect.right,
+        bottom: DOMRect.bottom,
+        left: DOMRect.left,
+      }; // create a new, plain object from the DOMRect object
+
+      this.setState({
+        nodeRect,
+      }, () => this.getCSSTransform());
+    }
+  }
+
+  // synthetic (calculated) positions
+  trackNodeRect = () => {
+    const { nodeRect } = this.state;
+
     const {
-      speed,
-      windowInfo: {
-        height: windowHeight,
+      scrollInfo: {
+        xDifference,
+        yDifference,
       },
-      scrollInfo,
     } = this.props;
 
-    const style = {
-      willChange: 'transform',
-      transform: '',
+    const newNodeRect = {
+      ...nodeRect, // maintain original width and height
+      top: nodeRect.top - yDifference,
+      right: nodeRect.right - xDifference,
+      bottom: nodeRect.bottom - yDifference,
+      left: nodeRect.left - xDifference,
     };
 
-    if (this.domRef.current) {
-      const offsetTop = getOffsetTop(this.domRef.current);
-      const min = offsetTop;
-      const max = offsetTop + windowHeight;
-      const pos = (((scrollInfo.y - min) / (max - min)) * 100).toFixed(3);
-      const capped = Math.min(Math.max(pos, -300), 300);
-      const transform = capped * speed;
-      style.transform = `translate3d(0, ${transform}%, 0)`;
-    }
+    this.setState({
+      nodeRect: newNodeRect,
+    }, () => this.getCSSTransform());
+  }
 
-    return style;
+  getCSSTransform = () => {
+    const {
+      nodeRect: {
+        top: nodeTop,
+        left: nodeLeft,
+      },
+    } = this.state;
+
+    const {
+      xDistance,
+      yDistance,
+      windowInfo: {
+        width: windowWidth,
+        height: windowHeight,
+      },
+    } = this.props;
+
+    const xProgress = nodeLeft / (windowWidth + xDistance);
+    const yProgress = nodeTop / (windowHeight + yDistance);
+
+    const xTransform = (xDistance * xProgress);
+    const yTransform = (yDistance * yProgress);
+
+    const cssTransform = `translate3d(${xTransform}px, ${yTransform}px, 0)`;
+
+    this.setState({ cssTransform });
   }
 
   render() {
     const {
+      classPrefix,
       id,
       className,
-      children,
+      style,
       htmlElement: HtmlElement,
-      classPrefix,
+      htmlAttributes,
+      scrollInfo: {
+        count: scrollCount,
+      },
+      children,
     } = this.props;
 
-    const {
-      hasScrolled,
-    } = this.state;
+    const { cssTransform } = this.state;
 
     const baseClass = `${classPrefix}__parallax`;
-    const styles = this.createStyles();
 
     const classes = [
       baseClass,
+      id,
       className,
-      hasScrolled && `${baseClass}--has-scrolled`,
+      htmlAttributes.className,
+      scrollCount && `${baseClass}--has-scrolled`,
     ].filter(Boolean).join(' ');
+
+    const strippedHtmlAttributes = { ...htmlAttributes };
+    delete strippedHtmlAttributes.id;
+    delete strippedHtmlAttributes.className;
+    delete strippedHtmlAttributes.style;
 
     return (
       <HtmlElement
-        id={id}
+        id={id || htmlAttributes.id}
         ref={this.domRef}
         className={classes}
-        style={styles}
+        style={{
+          ...style,
+          ...htmlAttributes.style,
+        }}
+        {...strippedHtmlAttributes}
+
       >
-        {children}
+        {React.cloneElement(
+          children,
+          {
+            style: {
+              ...children.props.style,
+              willChange: 'transform',
+              transform: cssTransform,
+            },
+          },
+        )}
       </HtmlElement>
     );
   }
 }
 
 Parallax.defaultProps = {
-  id: undefined,
-  className: undefined,
-  speed: 0.8,
+  classPrefix: '',
+  id: '',
+  className: '',
+  xDistance: 0,
+  yDistance: 0,
+  style: {},
   htmlElement: 'div',
+  htmlAttributes: {},
 };
 
 Parallax.propTypes = {
+  classPrefix: PropTypes.string,
   id: PropTypes.string,
   className: PropTypes.string,
-  speed: PropTypes.number,
-  htmlElement: PropTypes.oneOf([
-    'div',
-    'nav',
-    'span',
-    'section',
-    'article',
-  ]),
-  windowInfo: PropTypes.shape({
-    height: PropTypes.number,
-  }).isRequired,
+  xDistance: PropTypes.number,
+  yDistance: PropTypes.number,
   scrollInfo: PropTypes.shape({
+    x: PropTypes.number,
     y: PropTypes.number,
+    xDifference: PropTypes.number,
+    yDifference: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
+  windowInfo: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number,
+    count: PropTypes.number,
+  }).isRequired,
+  style: PropTypes.shape({}),
+  htmlElement: PropTypes.oneOf([
+    'article',
+    'aside',
+    'div',
+    'footer',
+    'header',
+    'main',
+    'nav',
+    'section',
+    'span',
+    'ul',
+    'li',
+  ]),
+  htmlAttributes: PropTypes.shape({
+    id: PropTypes.string,
+    className: PropTypes.string,
+    style: PropTypes.shape({}),
+  }),
   children: PropTypes.node.isRequired,
-  classPrefix: PropTypes.string.isRequired,
 };
 
 export default withParallaxContext(Parallax);
