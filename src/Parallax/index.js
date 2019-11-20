@@ -18,6 +18,7 @@ class Parallax extends Component {
       xTransform: 0,
       yTransform: 0,
       cssTransform: '',
+      isInPosition: false,
     };
   }
 
@@ -58,12 +59,12 @@ class Parallax extends Component {
     } = this.state;
 
     if (node) {
-      const DOMRect = node.getBoundingClientRect(); // clientRect because its relative to the vieport=
+      const DOMRect = node.getBoundingClientRect(); // clientRect because its relative to the vieport
 
       const nodeRect = {
         width: DOMRect.width,
         height: DOMRect.height,
-        top: DOMRect.top - prevYTransform, // subtrack prevTransform values to get the original, non-transformed node
+        top: DOMRect.top - prevYTransform, // subtrack prevTransform values to get the original, non-transformed nodeRect
         right: DOMRect.right - prevXTransform,
         bottom: DOMRect.bottom - prevXTransform,
         left: DOMRect.left - prevXTransform,
@@ -71,6 +72,7 @@ class Parallax extends Component {
 
       this.setState({
         nodeRect,
+        isInPosition: true,
       }, () => this.getCSSTransform());
     }
   }
@@ -152,13 +154,17 @@ class Parallax extends Component {
       children,
     } = this.props;
 
-    const { cssTransform } = this.state;
+    const {
+      cssTransform,
+      isInPosition,
+    } = this.state;
 
     const baseClass = `${classPrefix}__parallax`;
 
     const classes = [
       baseClass,
       scrollCount && `${baseClass}--has-scrolled`,
+      isInPosition && `${baseClass}--is-in-position`,
       className,
       htmlAttributes.className,
     ].filter(Boolean).join(' ');
