@@ -15,6 +15,8 @@ class Parallax extends Component {
         bottom: 0,
         left: 0,
       },
+      xTransform: 0,
+      yTransform: 0,
       cssTransform: '',
     };
   }
@@ -50,17 +52,21 @@ class Parallax extends Component {
   // queried (true) positions
   queryNodeRect = () => {
     const { current: node } = this.domRef;
+    const {
+      xTransform: prevXTransform,
+      yTransform: prevYTransform,
+    } = this.state;
 
     if (node) {
-      const DOMRect = node.getBoundingClientRect(); // clientRect because its relative to the vieport
+      const DOMRect = node.getBoundingClientRect(); // clientRect because its relative to the vieport=
 
       const nodeRect = {
         width: DOMRect.width,
         height: DOMRect.height,
-        top: DOMRect.top,
-        right: DOMRect.right,
-        bottom: DOMRect.bottom,
-        left: DOMRect.left,
+        top: DOMRect.top - prevYTransform, // subtrack prevTransform values to get the original, non-transformed node
+        right: DOMRect.right - prevXTransform,
+        bottom: DOMRect.bottom - prevXTransform,
+        left: DOMRect.left - prevXTransform,
       }; // create a new, plain object from the DOMRect object
 
       this.setState({
@@ -120,12 +126,16 @@ class Parallax extends Component {
     const xDistanceToBoundary = nodeLeft + nodeWidth;
     const xRatioInViewport = 1 - (xDistanceToBoundary / totalXTravel);
 
-    const xTransform = (xDistance * xRatioInViewport);
-    const yTransform = (yDistance * yRatioInViewport);
+    const xTransform = Math.round(xDistance * xRatioInViewport);
+    const yTransform = Math.round(yDistance * yRatioInViewport);
 
     const cssTransform = `translate3d(${xDistance && xTransform}px, ${yDistance && yTransform}px, 0)`;
 
-    this.setState({ cssTransform });
+    this.setState({
+      xTransform,
+      yTransform,
+      cssTransform,
+    });
   }
 
   render() {
@@ -158,11 +168,6 @@ class Parallax extends Component {
     delete strippedHtmlAttributes.className;
     delete strippedHtmlAttributes.style;
 
-    const childClasses = [
-      `${baseClass}__transformer`,
-      children.props.className,
-    ].filter(Boolean).join(' ');
-
     return (
       <HtmlElement
         id={id || htmlAttributes.id}
@@ -171,20 +176,11 @@ class Parallax extends Component {
         style={{
           ...htmlAttributes.style,
           ...style,
+          transform: cssTransform,
         }}
         {...strippedHtmlAttributes}
       >
-        {React.cloneElement(
-          children,
-          {
-            style: {
-              ...children.props.style,
-              willChange: 'transform',
-              transform: cssTransform,
-            },
-            className: childClasses,
-          },
-        )}
+        {children}
       </HtmlElement>
     );
   }

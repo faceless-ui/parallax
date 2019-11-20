@@ -5,69 +5,106 @@ const ParallaxDemo = () => {
   return (
     <Fragment>
       <div style={{ display: 'flex', alignItems: 'center' }}>
+
+        <div style={{ width: '200px', flexShrink: '0' }} />
+
         <div
           style={{
             flexGrow: 1,
             flexShrink: 0,
-            marginLeft: '200px',
             marginTop: '50vh',
           }}
         >
-          <Parallax
-            id="demo-id"
-            yDistance={-100}
-            htmlElement="section"
-            className="demo-class"
+          <div
             style={{
-              border: 'dashed rgba(0, 0, 0, .15) 2px',
-              width: '600px',
-            }}
-            htmlAttributes={{
-              id: 'demo-html-attribute-id', // will be overriden by 'id' prop
-              className: 'demo-html-attribute-class', // will be merged with 'className' prop
-              'aria-label': 'demo aria label',
-              style: { // will be merged with 'style' prop
-                border: 'dashed red 2px', // will be overriden by matched css property of 'style' prop
-              },
+              width: '700px',
+              height: '200px',
+              outline: 'dashed rgba(0, 0, 0, .15) 2px',
             }}
           >
-            <div
+            <Parallax
+              id="demo-id"
+              yDistance={-100}
+              htmlElement="section"
+              className="demo-class"
               style={{
-                height: '100px',
+                width: '100%',
+                height: '100%',
                 backgroundColor: 'rgba(0, 0, 0, .15)',
-                display: 'flex',
-                alignItems: 'center',
-                flexShrink: 0,
                 transform: 'none', // will be ignored because this style is reserved for the parallax effect
               }}
+              htmlAttributes={{
+                id: 'demo-html-attribute-id', // will be overriden by 'id' prop
+                className: 'demo-html-attribute-class', // will be merged with 'className' prop
+                'aria-label': 'demo aria label',
+                style: { // will be merged with 'style' prop
+                  backgroundColor: 'red', // will be overriden by matched css property of 'style' prop above
+                  opacity: '1',
+                },
+              }}
             >
-              <pre>
-                <code>
-                  yDistance: -100
-                </code>
-              </pre>
-            </div>
-          </Parallax>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <pre>
+                  <code>
+                    yDistance: -100
+                  </code>
+                </pre>
+              </div>
+            </Parallax>
+          </div>
+
+          <div style={{ height: '500px', flexShrink: '0' }} />
 
           <div
             style={{
-              height: '500px',
-              width: '1px',
-              flexShrink: 0,
+              outline: 'dashed rgba(0, 0, 0, .15) 2px',
+              width: '100px',
+              height: '100px',
             }}
-          />
+          >
+            <Parallax
+              yDistance={-600}
+              style={{
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'rgba(0, 0, 0, .15)',
+              }}
+            >
+              <pre>
+                <code>
+                  yDistance: -600
+                </code>
+              </pre>
+            </Parallax>
+          </div>
+        </div>
+
+        <div style={{ width: '50vw', flexShrink: '0' }} />
+
+        <div
+          style={{
+            flexShrink: '0',
+            outline: 'dashed rgba(0, 0, 0, .15) 2px',
+            height: '400px',
+            width: '150px',
+          }}
+        >
 
           <Parallax
-            yDistance={-100}
+            xDistance={125}
             style={{
-              border: 'dashed rgba(0, 0, 0, .15) 2px',
-              width: '100px',
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, .15)',
             }}
           >
             <div
               style={{
-                height: '300px',
-                backgroundColor: 'rgba(0, 0, 0, .15)',
                 display: 'flex',
                 alignItems: 'center',
                 flexShrink: 0,
@@ -75,102 +112,87 @@ const ParallaxDemo = () => {
             >
               <pre>
                 <code>
-                  yDistance: -100
+                  xDistance: 125
                 </code>
               </pre>
             </div>
           </Parallax>
         </div>
 
-        <Parallax
-          xDistance={100}
-          style={{
-            flexGrow: 1,
-            border: 'dashed rgba(0, 0, 0, .15) 2px',
-            marginLeft: '500px',
-          }}
-        >
-          <div
-            style={{
-              height: '650px',
-              width: '150px',
-              backgroundColor: 'rgba(0, 0, 0, .15)',
-              display: 'flex',
-              alignItems: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <pre>
-              <code>
-                xDistance: 100
-              </code>
-            </pre>
-          </div>
-        </Parallax>
-
-        <Parallax
-          xDistance={-400}
-          style={{
-            flexGrow: 1,
-            border: 'dashed rgba(0, 0, 0, .15) 2px',
-            marginLeft: '50vw',
-          }}
-        >
-          <div
-            style={{
-              height: '300px',
-              width: '700px',
-              backgroundColor: 'rgba(0, 0, 0, .15)',
-              display: 'flex',
-              alignItems: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <pre>
-              <code>
-                xDistance: -400
-              </code>
-            </pre>
-          </div>
-        </Parallax>
+        <div style={{ width: '75vw', flexShrink: '0' }} />
 
         <div
           style={{
-            height: '1px',
-            width: '200vw',
-            flexShrink: 0,
+            flexShrink: '0',
+            outline: 'dashed rgba(0, 0, 0, .15) 2px',
+            height: '300px',
+            width: '700px',
           }}
-        />
+        >
+          <Parallax
+            xDistance={-400}
+            style={{
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0, .15)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <pre>
+                <code>
+                  x Distance: -400
+                </code>
+              </pre>
+            </div>
+          </Parallax>
+        </div>
+
+        <div style={{ width: '200vw', height: '1px', flexShrink: '0' }} />
+
       </div>
 
-      <Parallax
-        xDistance={-250}
-        yDistance={125}
+      <div
         style={{
-          border: 'dashed rgba(0, 0, 0, .15) 2px',
+          flexShrink: '0',
+          outline: 'dashed rgba(0, 0, 0, .15) 2px',
           marginTop: '500px',
           marginLeft: '800px',
+          height: '100px',
+          width: '400px',
         }}
       >
-        <div
+        <Parallax
+          xDistance={-250}
+          yDistance={125}
           style={{
-            height: '100px',
+            width: '100%',
+            height: '100%',
             backgroundColor: 'rgba(0, 0, 0, .15)',
-            display: 'flex',
-            alignItems: 'center',
-            flexShrink: 0,
           }}
         >
-          <pre>
-            <code>
-              yDistance: -250
-              yDistance: 125
-            </code>
-          </pre>
-        </div>
-      </Parallax>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <pre>
+              <code>
+                yDistance: -250
+                yDistance: 125
+              </code>
+            </pre>
+          </div>
+        </Parallax>
+      </div>
 
-      <div style={{ height: '10000px' }} />
+      <div style={{ height: '100vh' }} />
 
     </Fragment>
   );

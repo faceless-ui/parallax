@@ -7,7 +7,7 @@ const AppDemo = () => {
     <Fragment>
       <style
         dangerouslySetInnerHTML={{ __html: `
-          .demo__parallax--has-scrolled > .demo__parallax__transformer {
+          .demo__parallax--has-scrolled {
             transition: transform 600ms cubic-bezier(0, 0, 0.2, 1) 0s;
           }
         ` }}
