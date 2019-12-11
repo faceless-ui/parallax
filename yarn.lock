@@ -735,19 +735,30 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@trbl/react-scroll-info@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@trbl/react-scroll-info/-/react-scroll-info-0.0.12.tgz#4f46494bb660f65dda5a49b6dbc9b998a6bd23b0"
-  integrity sha512-Mh9c0bSowVP4gHPzVHrvCJXC13uqAx40KkPa0YdcYl1c4k5GW47v/5opGyHtcrv97bWHqXCZNTuv+VILM608ig==
+"@trbl/react-node-position@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@trbl/react-node-position/-/react-node-position-0.0.5.tgz#294d45c81cf64614e4800c98486ec80e80b14ed0"
+  integrity sha512-kjF4WH7qoEIHZUNIkxxHnN8hCY5DMN2NVDfQk6ihHxVyifN5vj3KrVMUwxoxBycHl0wXtSwWI5bvjYKcz+zpEQ==
+  dependencies:
+    "@trbl/react-scroll-info" "^0.0.16"
+    "@trbl/react-window-info" "^0.0.10"
+    prop-types "^15.7.2"
+    react "^16.11.0"
+    react-dom "^16.11.0"
+
+"@trbl/react-scroll-info@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@trbl/react-scroll-info/-/react-scroll-info-0.0.16.tgz#73937c51f56a677f9fc5dd592d186cd41901bb83"
+  integrity sha512-MvFVzk0Fv/iifNgYZLgflL7dHx7z8cWr4EyY5Kvo8BZbfYhpG3+9hIbgz2zb46ymNa364CZHmkYhNVE7TdbTOw==
   dependencies:
     prop-types "^15.7.2"
     react "^16.11.0"
     react-dom "^16.11.0"
 
-"@trbl/react-window-info@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@trbl/react-window-info/-/react-window-info-0.0.3.tgz#b05e27395a364107f3c95e07fdc8626aaf44dd45"
-  integrity sha512-FRWhtc368zNDPAUPQsxG75v6w3pSH2wA1ip6cFb2f/HP1BW9WlWX+ORl9Z+5qqRgymvN+2lXcR+vENDqpQq84A==
+"@trbl/react-window-info@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@trbl/react-window-info/-/react-window-info-0.0.10.tgz#bf04cf9d38f868dfd0eebea05ab0e8c82b6f8eca"
+  integrity sha512-vr24W+4fuodif2JIb0H4Gj684izstrtl5aHcr8NoU4vO702t3YX6vVjMKTqrc0HQa7Q2jRPxFOMTbYMUvAbKVA==
   dependencies:
     prop-types "^15.7.2"
     react "^16.11.0"

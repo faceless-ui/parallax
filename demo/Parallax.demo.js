@@ -12,7 +12,7 @@ const ParallaxDemo = () => {
           style={{
             flexGrow: 1,
             flexShrink: 0,
-            marginTop: '50vh',
+            marginTop: '125vh',
           }}
         >
           <div
@@ -30,7 +30,7 @@ const ParallaxDemo = () => {
               style={{
                 width: '100%',
                 height: '100%',
-                backgroundColor: 'rgba(0, 0, 0, .15)',
+                // backgroundColor: 'rgba(0, 0, 0, .15)',
                 transform: 'none', // will be ignored because this style is reserved for the parallax effect
               }}
               htmlAttributes={{
@@ -38,7 +38,7 @@ const ParallaxDemo = () => {
                 className: 'demo-html-attribute-class', // will be merged with 'className' prop
                 'aria-label': 'demo aria label',
                 style: { // will be merged with 'style' prop
-                  backgroundColor: 'red', // will be overriden by matched css property of 'style' prop above
+                  // backgroundColor: 'red', // will be overriden by matched css property of 'style' prop above
                   opacity: '1',
                 },
               }}
@@ -57,8 +57,10 @@ const ParallaxDemo = () => {
               </div>
             </Parallax>
           </div>
+        </div>
+      </div>
 
-          <div style={{ height: '500px', flexShrink: '0' }} />
+      {/* <div style={{ height: '500px', flexShrink: '0' }} />
 
           <div
             style={{
@@ -190,9 +192,9 @@ const ParallaxDemo = () => {
             </pre>
           </div>
         </Parallax>
-      </div>
+      </div> */}
 
-      <div style={{ height: '100vh' }} />
+      <div style={{ height: '200vh' }} />
 
     </Fragment>
   );
