@@ -3,7 +3,7 @@
   "version": "0.0.7",
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-parallax.git",
-  "description": "A smoooth as butter parallax for React projects.",
+  "description": "Smoooth.",
   "author": "<info@trbl.design>",
   "license": "MIT",
   "keywords": [

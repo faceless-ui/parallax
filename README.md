@@ -4,7 +4,7 @@
 
 # React Parallax
 
-A smoooth as butter parallax for React projects.
+Smoooth.
 
 ## Quick Start
 
@@ -52,6 +52,10 @@ All available props can be found via the references below:
 
   - [Parallax](/src/Parallax/README.md)
   - [ParallaxProvider](/src/ParallaxProvider/README.md)
+
+## Contribution
+
+[Help us,](https://github.com/trouble/.github/blob/master/CONTRIBUTING.md) or let us [help you help us](https://github.com/trouble/.github/blob/master/SUPPORT.md).
 
 ## License
 
