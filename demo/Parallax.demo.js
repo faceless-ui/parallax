@@ -1,66 +1,65 @@
 import React, { Fragment } from 'react';
 import { Parallax } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 
-const ParallaxDemo = () => {
-  return (
-    <Fragment>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+const ParallaxDemo = () => (
+  <Fragment>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
 
-        <div style={{ width: '200px', flexShrink: '0' }} />
+      <div style={{ width: '200px', flexShrink: '0' }} />
 
+      <div
+        style={{
+          flexGrow: 1,
+          flexShrink: 0,
+          marginTop: '125vh',
+        }}
+      >
         <div
           style={{
-            flexGrow: 1,
-            flexShrink: 0,
-            marginTop: '125vh',
+            width: '700px',
+            height: '200px',
+            outline: 'dashed rgba(0, 0, 0, .15) 2px',
           }}
         >
-          <div
+          <Parallax
+            id="demo-id"
+            yDistance={-100}
+            htmlElement="section"
+            className="demo-class"
             style={{
-              width: '700px',
-              height: '200px',
-              outline: 'dashed rgba(0, 0, 0, .15) 2px',
+              width: '100%',
+              height: '100%',
+              // backgroundColor: 'rgba(0, 0, 0, .15)',
+              transform: 'none', // will be ignored because this style is reserved for the parallax effect
+            }}
+            htmlAttributes={{
+              id: 'demo-html-attribute-id', // will be overriden by 'id' prop
+              className: 'demo-html-attribute-class', // will be merged with 'className' prop
+              'aria-label': 'demo aria label',
+              style: { // will be merged with 'style' prop
+                // backgroundColor: 'red', // will be overriden by matched css property of 'style' prop above
+                opacity: '1',
+              },
             }}
           >
-            <Parallax
-              id="demo-id"
-              yDistance={-100}
-              htmlElement="section"
-              className="demo-class"
+            <div
               style={{
-                width: '100%',
-                height: '100%',
-                // backgroundColor: 'rgba(0, 0, 0, .15)',
-                transform: 'none', // will be ignored because this style is reserved for the parallax effect
-              }}
-              htmlAttributes={{
-                id: 'demo-html-attribute-id', // will be overriden by 'id' prop
-                className: 'demo-html-attribute-class', // will be merged with 'className' prop
-                'aria-label': 'demo aria label',
-                style: { // will be merged with 'style' prop
-                  // backgroundColor: 'red', // will be overriden by matched css property of 'style' prop above
-                  opacity: '1',
-                },
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <pre>
-                  <code>
-                    yDistance: -100
-                  </code>
-                </pre>
-              </div>
-            </Parallax>
-          </div>
+              <pre>
+                <code>
+                  yDistance: -100
+                </code>
+              </pre>
+            </div>
+          </Parallax>
         </div>
       </div>
+    </div>
 
-      {/* <div style={{ height: '500px', flexShrink: '0' }} />
+    {/* <div style={{ height: '500px', flexShrink: '0' }} />
 
           <div
             style={{
@@ -194,10 +193,9 @@ const ParallaxDemo = () => {
         </Parallax>
       </div> */}
 
-      <div style={{ height: '200vh' }} />
+    <div style={{ height: '200vh' }} />
 
-    </Fragment>
-  );
-};
+  </Fragment>
+);
 
 export default ParallaxDemo;

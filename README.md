@@ -14,7 +14,7 @@ Smoooth.
 $ yarn add @trbl/react-parallax
 ```
 
-### Compositon
+### Composition
 
 ```jsx
   import React from 'react';
@@ -41,8 +41,8 @@ $ yarn add @trbl/react-parallax
 To demo locally, clone the repo and
 
 ```bash
-$ yarn install
-$ npm run dev
+$ yarn
+$ yarn dev
 $ open http://localhost:3000
 ```
 

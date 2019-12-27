@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import { ParallaxProvider } from '../src'; // swap '../src' for '../dist/build.bundle' to demo production build
 import ParallaxDemo from './Parallax.demo';
 
-const AppDemo = () => {
-  return (
-    <Fragment>
-      <style
-        dangerouslySetInnerHTML={{ __html: `
+const AppDemo = () => (
+  <Fragment>
+    <style
+      dangerouslySetInnerHTML={{
+        __html: `
           .demo__parallax {
             opacity: 0;
           }
@@ -18,13 +18,13 @@ const AppDemo = () => {
           .demo__parallax--is-in-position {
             opacity: 1;
           }
-        ` }}
-      />
-      <ParallaxProvider classPrefix="demo">
-        <ParallaxDemo />
-      </ParallaxProvider>
-    </Fragment>
-  );
-};
+        `,
+      }}
+    />
+    <ParallaxProvider classPrefix="demo">
+      <ParallaxDemo />
+    </ParallaxProvider>
+  </Fragment>
+);
 
 export default AppDemo;
