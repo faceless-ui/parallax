@@ -4,7 +4,7 @@
   "main": "dist/build.bundle.js",
   "repository": "git@github.com:trouble/react-parallax.git",
   "description": "Smoooth.",
-  "author": "<info@trbl.design>",
+  "author": "<dev@trbl.design>",
   "license": "MIT",
   "keywords": [
     "react",
@@ -44,10 +44,20 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.6",
     "react-hot-loader": "^4.12.14",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.10.1"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "files": [
     "dist"

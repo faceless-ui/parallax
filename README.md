@@ -50,8 +50,8 @@ $ open http://localhost:3000
 
 All available props can be found via the references below:
 
-  - [Parallax](/src/Parallax/README.md)
-  - [ParallaxProvider](/src/ParallaxProvider/README.md)
+  - [Parallax](./src/Parallax/README.md)
+  - [ParallaxProvider](./src/ParallaxProvider/README.md)
 
 ## Contribution
 
