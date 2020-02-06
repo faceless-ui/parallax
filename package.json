@@ -15,10 +15,10 @@
     "ux"
   ],
   "scripts": {
-    "build": "yarn run lint && webpack --config webpack.production.config.js",
+    "build": "yarn lint && yarn test && webpack --config webpack.production.config.js",
     "dev": "webpack-dev-server --hot --inline --config webpack.development.config.js",
     "lint": "eslint .",
-    "test": "echo \"No test specified\""
+    "test": "jest"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -34,18 +34,23 @@
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
-    "@trbl/eslint-config": "^1.1.4",
+    "@trbl/eslint-config": "^1.2.4",
     "@trbl/react-html-element": "^1.0.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^5.16.0",
     "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-jest-dom": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^2.3.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.1",
+    "jest": "^25.1.0",
     "lint-staged": "^10.0.6",
     "react-hot-loader": "^4.12.14",
     "webpack": "^4.41.4",
