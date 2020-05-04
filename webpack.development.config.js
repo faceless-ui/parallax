@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'inline-source-map',
   mode: 'development',
   entry: './demo/index.js',
   output: {
@@ -35,5 +36,6 @@ module.exports = {
   ],
   devServer: {
     port: 3000,
+    host: '0.0.0.0',
   },
 };

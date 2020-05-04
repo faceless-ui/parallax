@@ -4,13 +4,15 @@
 
 # React Parallax
 
-Smoooth.
+## Highlights
 
 ## Quick Start
 
 ### Installation
 
 ```bash
+$ npm i @trbl/react-parallax
+$ # or
 $ yarn add @trbl/react-parallax
 ```
 
@@ -20,35 +22,32 @@ $ yarn add @trbl/react-parallax
   import React from 'react';
   import { ParallaxProvider, Parallax } from '@trbl/react-parallax';
 
-  const App = () => {
-    return (
-      <ParallaxProvider>
-        <Parallax speed={0.3}>
-          ...
-        </Parallax>
-        <Parallax speed={0.9}>
-          ...
-        </Parallax>
-      </ParallaxProvider>
-    )
-  }
+  const App = () => (
+    <ParallaxProvider>
+      <Parallax speed={0.3}>
+        ...
+      </Parallax>
+      <Parallax speed={0.9}>
+        ...
+      </Parallax>
+    </ParallaxProvider>
+  )
 
   export default App;
 ```
 
+For working examples, see the [demo app](./demo/App.demo.js).
+
 ## Demo
 
-To demo locally, clone the repo and
-
 ```bash
+$ git clone git@github.com:trouble/react-parallax.git
 $ yarn
 $ yarn dev
 $ open http://localhost:3000
 ```
 
-## Documentation
-
-All available props can be found via the references below:
+## API
 
   - [Parallax](./src/Parallax/README.md)
   - [ParallaxProvider](./src/ParallaxProvider/README.md)
