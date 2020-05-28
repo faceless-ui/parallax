@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withNodePosition } from '@trbl/react-node-position';
-import HTMLElement from '@trbl/react-html-element';
+import { withNodePosition } from '@faceless-ui/node-position';
+import HTMLElement from '@faceless-ui/html-element';
 
 const Parallax = forwardRef((props, ref) => {
   const [cssTransform, setCSSTransform] = useState('');

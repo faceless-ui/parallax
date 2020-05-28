@@ -20,7 +20,7 @@ module.exports = [{
     ],
   },
   externals: {
-    '@trbl/react-node-position': '@trbl/react-node-position',
+    '@faceless-ui/node-position': '@faceless-ui/node-position',
     'prop-types': 'prop-types',
     react: 'react',
     'react-dom': 'react-dom',

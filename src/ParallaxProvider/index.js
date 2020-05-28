@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NodePositionProvider } from '@trbl/react-node-position';
+import { NodePositionProvider } from '@faceless-ui/node-position';
 import defaultClassPrefix from '../defaultClassPrefix';
 
 const ParallaxProvider = (props) => {
